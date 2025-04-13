@@ -27,6 +27,7 @@ func InitMongoDB(appConfigs *config.AppConfigs) {
 	if err != nil {
 		core.PanicHandler(fmt.Sprintf("❌ Failed to connect to MongoDB: %v", err.Error()))
 	}
+	client.Database(appConfigs.AppConfig("MONGO_DB_NAME"))
 	Client = client
 	fmt.Println("✅ MongoDB connected!")
 }

@@ -18,7 +18,16 @@ func NewProductRoutes(productHandler *handler.ProductHandelr, e *echo.Echo) *Pro
 }
 
 func (p *ProductRoute) ProductV1ApiRoutes() {
+	/* ------------------------ prifix: /api/v1/products ------------------------ */
 	v1 := p.echo.Group("/api/v1")
 	products := v1.Group("/products")
-	products.GET("", p.productHandler.ProductsList)
+	/* ----------------------------------- GET ---------------------------------- */
+	products.GET("", p.productHandler.ProductList)
+	products.GET("/:id", p.productHandler.ProductById)
+	/* ---------------------------------- POST ---------------------------------- */
+	products.POST("/new-products", p.productHandler.CreateNewProduct)
+	/* ---------------------------------- PATCH --------------------------------- */
+	products.PATCH("/:id", p.productHandler.UpdateProduct)
+	/* --------------------------------- DELETE --------------------------------- */
+	products.DELETE("/:id", p.productHandler.DeleteProduct)
 }
